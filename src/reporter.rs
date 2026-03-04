@@ -15,10 +15,7 @@ fn report_terminal(results: &[CrawlResult]) {
     let failed = results.iter().filter(|r| !r.success).count();
     eprintln!(
         "{}",
-        format!(
-            "All queued items have been processed ({total} total, {failed} failed)"
-        )
-        .blue()
+        format!("All queued items have been processed ({total} total, {failed} failed)").blue()
     );
 }
 

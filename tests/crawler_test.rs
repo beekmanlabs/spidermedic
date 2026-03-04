@@ -21,10 +21,7 @@ async fn test_crawl_all_200() {
 
     Mock::given(method("GET"))
         .and(path("/"))
-        .respond_with(
-            ResponseTemplate::new(200)
-                .set_body_string(r#"<a href="/about">About</a>"#),
-        )
+        .respond_with(ResponseTemplate::new(200).set_body_string(r#"<a href="/about">About</a>"#))
         .mount(&mock_server)
         .await;
 
@@ -46,8 +43,7 @@ async fn test_crawl_detects_404() {
     Mock::given(method("GET"))
         .and(path("/"))
         .respond_with(
-            ResponseTemplate::new(200)
-                .set_body_string(r#"<a href="/missing">Missing</a>"#),
+            ResponseTemplate::new(200).set_body_string(r#"<a href="/missing">Missing</a>"#),
         )
         .mount(&mock_server)
         .await;
@@ -72,19 +68,15 @@ async fn test_no_duplicate_visits() {
     Mock::given(method("GET"))
         .and(path("/"))
         .respond_with(
-            ResponseTemplate::new(200).set_body_string(
-                r#"<a href="/page1">P1</a><a href="/shared">Shared</a>"#,
-            ),
+            ResponseTemplate::new(200)
+                .set_body_string(r#"<a href="/page1">P1</a><a href="/shared">Shared</a>"#),
         )
         .mount(&mock_server)
         .await;
 
     Mock::given(method("GET"))
         .and(path("/page1"))
-        .respond_with(
-            ResponseTemplate::new(200)
-                .set_body_string(r#"<a href="/shared">Shared</a>"#),
-        )
+        .respond_with(ResponseTemplate::new(200).set_body_string(r#"<a href="/shared">Shared</a>"#))
         .mount(&mock_server)
         .await;
 
@@ -95,8 +87,15 @@ async fn test_no_duplicate_visits() {
         .await;
 
     let results = run(&make_config(mock_server.uri())).await;
-    let shared: Vec<_> = results.iter().filter(|r| r.url.contains("/shared")).collect();
-    assert_eq!(shared.len(), 1, "shared page should be visited exactly once");
+    let shared: Vec<_> = results
+        .iter()
+        .filter(|r| r.url.contains("/shared"))
+        .collect();
+    assert_eq!(
+        shared.len(),
+        1,
+        "shared page should be visited exactly once"
+    );
 }
 
 #[tokio::test]
@@ -105,19 +104,13 @@ async fn test_max_depth_limits_crawl() {
 
     Mock::given(method("GET"))
         .and(path("/"))
-        .respond_with(
-            ResponseTemplate::new(200)
-                .set_body_string(r#"<a href="/depth1">D1</a>"#),
-        )
+        .respond_with(ResponseTemplate::new(200).set_body_string(r#"<a href="/depth1">D1</a>"#))
         .mount(&mock_server)
         .await;
 
     Mock::given(method("GET"))
         .and(path("/depth1"))
-        .respond_with(
-            ResponseTemplate::new(200)
-                .set_body_string(r#"<a href="/depth2">D2</a>"#),
-        )
+        .respond_with(ResponseTemplate::new(200).set_body_string(r#"<a href="/depth2">D2</a>"#))
         .mount(&mock_server)
         .await;
 
