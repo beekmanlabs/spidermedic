@@ -8,7 +8,7 @@ export default defineConfig({
       title: 'spidermedic',
       description: 'Crawl a website and validate HTTP responses — catch broken links in CI before they reach production.',
       social: {
-        github: 'https://github.com/beekmanlabs/node-spidermedic',
+        github: 'https://github.com/beekmanlabs/spidermedic',
       },
       sidebar: [
         {

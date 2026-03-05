@@ -5,7 +5,7 @@ A CLI tool for validating pages while crawling a website. Crawls all reachable p
 ## GitHub Action
 
 ```yaml
-- uses: beekmanlabs/node-spidermedic@main
+- uses: beekmanlabs/spidermedic@main
   with:
     url: 'https://example.com'
 ```
@@ -37,7 +37,7 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - uses: beekmanlabs/node-spidermedic@main
+      - uses: beekmanlabs/spidermedic@main
         with:
           url: 'https://example.com'
           concurrency: '20'
