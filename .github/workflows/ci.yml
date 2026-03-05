@@ -61,17 +61,20 @@ jobs:
         run: npm install && npm run build
         working-directory: docs
       - name: Serve docs on port 4321
-        run: python3 -m http.server 4321 --directory docs/dist &
+        run: |
+          python3 -m http.server 4321 --directory docs/dist &
+          HOST_IP=$(ip route show default | awk '{print $3}')
+          echo "DOCS_URL=http://${HOST_IP}:4321" >> $GITHUB_ENV
       - name: Wait for server to be ready
         run: |
           for i in $(seq 1 30); do
-            curl -sf http://localhost:4321 > /dev/null && echo "Server ready" && exit 0
+            curl -sf $DOCS_URL > /dev/null && echo "Server ready" && exit 0
             sleep 1
           done
           echo "Server did not start in time" && exit 1
       - name: Run spidermedic against docs site
         uses: ./
         with:
-          url: 'http://localhost:4321'
+          url: '${{ env.DOCS_URL }}'
           max-depth: '3'
           concurrency: '5'
