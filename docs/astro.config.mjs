@@ -7,13 +7,9 @@ export default defineConfig({
     starlight({
       title: 'spidermedic',
       description: 'Crawl a website and validate HTTP responses — catch broken links in CI before they reach production.',
-      social: [
-        {
-          icon: 'github',
-          label: 'GitHub',
-          href: 'https://github.com/beekmanlabs/node-spidermedic',
-        },
-      ],
+      social: {
+        github: 'https://github.com/beekmanlabs/node-spidermedic',
+      },
       sidebar: [
         {
           label: 'Getting Started',
