@@ -25,7 +25,7 @@ A CLI tool for validating pages while crawling a website. Crawls all reachable p
 ### Example workflow
 
 ```yaml
-name: Link checker
+name: SpiderMedic Link Checker
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - uses: ethanhann/spidermedic@main
+      - uses: ethanhann/spidermedic@v0.2.0
         with:
           url: 'https://example.com'
           concurrency: '20'
