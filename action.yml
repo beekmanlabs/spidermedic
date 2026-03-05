@@ -15,9 +15,9 @@ inputs:
     required: false
     default: '/'
   port:
-    description: 'Port to connect on'
+    description: 'Port to connect on (0 = use scheme default)'
     required: false
-    default: '80'
+    default: '0'
   interval:
     description: 'Milliseconds between requests'
     required: false

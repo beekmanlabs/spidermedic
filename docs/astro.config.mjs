@@ -12,16 +12,10 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: 'Getting Started',
-          items: [
-            { label: 'Overview', slug: 'index' },
-          ],
-        },
-        {
           label: 'Guides',
           items: [
-            { label: 'GitHub Action', slug: 'guides/action' },
-            { label: 'CLI', slug: 'guides/cli' },
+            { label: 'GitHub Action', link: '/guides/action' },
+            { label: 'CLI', link: '/guides/cli' },
           ],
         },
       ],

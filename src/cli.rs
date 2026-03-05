@@ -15,8 +15,8 @@ pub struct Config {
     #[arg(long, default_value = "/")]
     pub path: String,
 
-    /// Port to connect on (overrides port in URL if non-default)
-    #[arg(long, default_value_t = 80)]
+    /// Port to connect on (overrides port in URL; 0 = use scheme default)
+    #[arg(long, default_value_t = 0)]
     pub port: u16,
 
     /// Milliseconds between requests (rate limiting)

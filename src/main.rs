@@ -23,11 +23,11 @@ async fn main() -> ExitCode {
 }
 
 fn apply_port(config: &mut Config) {
+    if config.port == 0 {
+        return;
+    }
     if let Ok(mut u) = Url::parse(&config.url) {
-        let default_port = if u.scheme() == "https" { 443 } else { 80 };
-        if config.port != default_port {
-            u.set_port(Some(config.port)).ok();
-            config.url = u.to_string();
-        }
+        u.set_port(Some(config.port)).ok();
+        config.url = u.to_string();
     }
 }
